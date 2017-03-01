@@ -16,8 +16,9 @@ namespace Aulas.Controllers
             _artigoList = new List<Artigo>();
         }
 
-        public void InserirArtigo(Artigo artigoInserir)
+        public void InserirArtigo(string nomeArtigoInserir, float precoArtigoInserir, int aritgoControllerCont)
         {
+            Artigo artigoInserir = new Artigo(nomeArtigoInserir, precoArtigoInserir, aritgoControllerCont);
             _artigoList.Add(artigoInserir);
         }
 
@@ -92,9 +93,20 @@ namespace Aulas.Controllers
             return null;
         }
 
-        public List<Artigo> GetArtigos()
+        public List<string> GetArtigos()
         {
-            return _artigoList;
+            List<string> artigoStringList = new List<string>();
+            foreach (Artigo artigo in _artigoList)
+            {
+                artigoStringList.Add(
+                    string.Concat(
+                        artigo.Identificador,
+                        "     ",
+                        artigo.Nome,
+                        "     ",
+                        artigo.Preco));
+            }
+            return artigoStringList;
         }
 
         public void LimparLista()

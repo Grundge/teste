@@ -10,7 +10,8 @@ namespace Aulas.Models
     public class Orcamento
     {
         public List<Artigo> ArtigoList { get; set; }
-
+        public string Client { get; set; }
+        public int Identificador { get; set; }
         
     }
 }

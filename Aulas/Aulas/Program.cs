@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Aulas.Controllers;
 using Aulas.Models;
+using Aulas.View;
 
 namespace Aulas
 {
@@ -14,8 +15,8 @@ namespace Aulas
         
         static void Main(string[] args)
         {
-            PlataformaController plataformaController = new PlataformaController();
-            plataformaController.InicializarPlataformaController();
+            PlataformaView plataformaView = new PlataformaView();
+            plataformaView.InicializarPlataformaView();
         }
     }
 }

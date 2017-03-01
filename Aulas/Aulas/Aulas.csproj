@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Controllers\ArtigoController.cs" />
     <Compile Include="Controllers\OrcamentoController.cs" />
-    <Compile Include="Controllers\PlataformaController.cs" />
     <Compile Include="Models\Artigo.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Orcamento.cs" />
@@ -55,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CalculadorIva\CalculadorIva.csproj">
