@@ -14,6 +14,7 @@ namespace Aulas.Models
         ListarArtigos,
         LimparArtigos,
         PesquisarArtigo,
+        Guardar,
         Sair
     }
 }

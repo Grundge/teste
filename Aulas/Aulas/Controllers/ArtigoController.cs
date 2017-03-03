@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aulas.Models;
+using Newtonsoft.Json;
 
 namespace Aulas.Controllers
 {
@@ -11,9 +12,17 @@ namespace Aulas.Controllers
     {
         private List<Artigo> _artigoList;
 
-        public ArtigoController()
+        public ArtigoController(string listaArtigos = "")
         {
-            _artigoList = new List<Artigo>();
+            if (string.IsNullOrEmpty(listaArtigos) || string.IsNullOrWhiteSpace(listaArtigos))
+            {
+                _artigoList = new List<Artigo>();
+            }
+            else
+            {
+                _artigoList = JsonConvert.DeserializeObject<List<Artigo>>(listaArtigos);
+            }
+            
         }
 
         public void InserirArtigo(string nomeArtigoInserir, float precoArtigoInserir, int aritgoControllerCont)
@@ -107,6 +116,11 @@ namespace Aulas.Controllers
                         artigo.Preco));
             }
             return artigoStringList;
+        }
+
+        public List<Artigo> GetArtigosList()
+        {
+            return _artigoList;
         }
 
         public void LimparLista()

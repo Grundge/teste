@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aulas.Controllers;
 using Aulas.Models;
+using Newtonsoft.Json;
 
 
 namespace Aulas.View
@@ -15,10 +17,22 @@ namespace Aulas.View
     {
         private Menu _menuState;
         private ArtigoController _artigoController;
+        private string _serializedDataModel;
+
+
 
         public PlataformaView()
         {
-            _artigoController = new ArtigoController();
+
+            if (System.IO.File.Exists("backup.txt"))
+            {
+                string backup = System.IO.File.ReadAllText("backup.txt");
+                _artigoController = new ArtigoController(backup);
+            }
+            else
+            {
+                _artigoController = new ArtigoController();
+            }
         }
 
         public void InicializarPlataformaView()
@@ -30,6 +44,7 @@ namespace Aulas.View
                 Console.WriteLine(((int)Menu.InserirArtigo) + " Para inserir artigos");
                 Console.WriteLine(((int)Menu.EliminarArtigo) + " Para eliminar artigos");
                 Console.WriteLine(((int)Menu.ListarArtigos) + " Para listar artigos");
+                Console.WriteLine(((int)Menu.Guardar) + " Para guardar artigos");
                 Console.WriteLine(((int)Menu.Sair) + " Para saír");
                 string opcao = Console.ReadLine();
 
@@ -80,6 +95,7 @@ namespace Aulas.View
                 out precoArtigoInserir));
             
             _artigoController.InserirArtigo(nomeArtigoInserir, precoArtigoInserir, _artigoController.GetArtigos().Count);
+            OpcaoGurdar();
         }
 
         private void OpcaoEliminarArtigo()
@@ -92,6 +108,7 @@ namespace Aulas.View
                 if (_artigoController.RemoverArtigo(id))
                 {
                     Console.WriteLine("Removeu o artigo com sucesso");
+                    OpcaoGurdar();
                 }
                 else
                 {
@@ -103,6 +120,7 @@ namespace Aulas.View
                 if (_artigoController.RemoverArtigo(nome))
                 {
                     Console.WriteLine("Removeu o artigo com sucesso");
+                    OpcaoGurdar();
                 }
                 else
                 {
@@ -122,6 +140,12 @@ namespace Aulas.View
         private void OpcaoInvalidoDefault()
         {
             Console.WriteLine("Opcao invalida");
+        }
+
+        private void OpcaoGurdar()
+        {
+            _serializedDataModel = JsonConvert.SerializeObject(_artigoController.GetArtigosList());
+            System.IO.File.WriteAllText("backup.txt",_serializedDataModel);
         }
 
     }
